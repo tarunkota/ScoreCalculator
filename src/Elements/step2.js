@@ -20,10 +20,17 @@ class Step2 extends React.Component {
   }
 
   componentDidMount() {
-    fetchDataWithoutToken(
-      "scoreCalculator/getQuestions?set=" + this.props.set,
-      (json) => this.setData(json)
-    );
+    if (this.props.csat) {
+      fetchDataWithoutToken(
+        "scoreCalculator/getQuestions2?set=" + this.props.set,
+        (json) => this.setData(json)
+      );
+    } else {
+      fetchDataWithoutToken(
+        "scoreCalculator/getQuestions?set=" + this.props.set,
+        (json) => this.setData(json)
+      );
+    }
   }
 
   render() {

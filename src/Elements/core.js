@@ -19,6 +19,7 @@ class Core extends React.Component {
     set: 0,
     answers: new Array(100).fill(0),
     name: "",
+    csat: false,
   };
 
   componentDidMount() {}
@@ -27,6 +28,9 @@ class Core extends React.Component {
     this.setState({ step: 2, set: s });
   };
 
+  selectSet2 = (s) => {
+    this.setState({ step: 2, set: s, csat: true });
+  };
   setAnswer = (qno, value) => {
     console.log(qno, value);
     var a = this.state.answers;
@@ -50,8 +54,23 @@ class Core extends React.Component {
   getResults = () => {
     //submit the answers first
     let body = JSON.stringify(this.state);
+    if (this.state.csat) {
+      postData(
+        "scoreCalculator/submitResponse2",
+        body,
+        this.getResultsResponse
+      );
+    } else {
+      postData("scoreCalculator/submitResponse", body, this.getResultsResponse);
+    }
+  };
 
-    postData("scoreCalculator/submitResponse", body, this.getResultsResponse);
+  onClickPaper1 = () => {
+    this.setState({ ...this.state, step: 4, csat: false });
+  };
+
+  onClickPaper2 = () => {
+    this.setState({ ...this.state, step: 4, csat: true });
   };
 
   render() {
@@ -88,10 +107,17 @@ class Core extends React.Component {
           Prelims'22 Score Calculator
         </Typography>
         {this.state.step === 1 ? (
-          <Step1 selectSet={this.selectSet} setName={this.setName}></Step1>
+          <Step1
+            selectSet={this.selectSet}
+            selectSet2={this.selectSet2}
+            setName={this.setName}
+            onClickPaper1={this.onClickPaper1}
+            onClickPaper2={this.onClickPaper2}
+          ></Step1>
         ) : null}
         {this.state.step === 2 ? (
           <Step2
+            csat={this.state.csat}
             set={this.state.set}
             setAnswer={this.setAnswer}
             submitAnswers={this.submitAnswers}
@@ -100,7 +126,7 @@ class Core extends React.Component {
         {this.state.step === 3 ? (
           <Step3 getResults={this.getResults}></Step3>
         ) : null}
-        {this.state.step === 4 ? <Step4></Step4> : null}
+        {this.state.step === 4 ? <Step4 csat={this.state.csat}></Step4> : null}
       </Container>
     );
   }

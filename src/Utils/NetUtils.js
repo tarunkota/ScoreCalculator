@@ -1,7 +1,7 @@
 import { getToken } from "../Utils/TokenUtils";
 
-// export const domainUrl = "https://www.naulets.com/";
-export const domainUrl = "http://127.0.0.1:8000/";
+export const domainUrl = "https://www.naulets.com/";
+// export const domainUrl = "http://127.0.0.1:8000/";
 
 export const fetchDataWithoutToken = (endpoint, callbacksetData) => {
   fetch(domainUrl + endpoint)

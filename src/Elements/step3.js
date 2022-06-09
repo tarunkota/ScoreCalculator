@@ -20,7 +20,14 @@ class Step3 extends React.Component {
     loading: false,
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    const cookies = new Cookies();
+    let token = cookies.get("Token");
+    if (!(token == null)) {
+      this.setState({ ...this.state, loading: true });
+      this.props.getResults();
+    }
+  }
 
   sendOTPResponse = (json) => {
     if (json.status === "success") {

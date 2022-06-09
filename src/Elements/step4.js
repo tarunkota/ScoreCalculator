@@ -31,8 +31,12 @@ class Step4 extends React.Component {
   };
 
   componentDidMount() {
-    if (this.state.data == null)
-      fetchData("scoreCalculator/getResults", (json) => {
+    if (this.state.data == null) {
+      var url = "scoreCalculator/getResults";
+      if (this.props.csat) {
+        url = "scoreCalculator/getResults2";
+      }
+      fetchData(url, (json) => {
         this.setState({
           ...this.state,
           data: json,
@@ -40,6 +44,7 @@ class Step4 extends React.Component {
           hide: false,
         });
       });
+    }
   }
 
   sleep = (milliseconds) => {
@@ -79,8 +84,15 @@ class Step4 extends React.Component {
         wrong[j] = now;
       }
       score = ["Score"];
-      for (let j = 1; j < data.answers[0].length; j++) {
-        score[j] = (correct[j] * 2 - (wrong[j] * 2) / 3).toFixed(2);
+
+      if (this.props.csat) {
+        for (let j = 1; j < data.answers[0].length; j++) {
+          score[j] = (correct[j] * 2.5 - (wrong[j] * 2.5) / 3).toFixed(2);
+        }
+      } else {
+        for (let j = 1; j < data.answers[0].length; j++) {
+          score[j] = (correct[j] * 2 - (wrong[j] * 2) / 3).toFixed(2);
+        }
       }
     }
 
