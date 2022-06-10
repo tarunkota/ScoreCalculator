@@ -12,6 +12,7 @@ import Step4 from "./step4";
 import { postData } from "../Utils/NetUtils";
 import Share from "./share";
 import disableScroll from "disable-scroll";
+import Analytics from "./analytics";
 
 class Core extends React.Component {
   state = {
@@ -107,13 +108,16 @@ class Core extends React.Component {
           Prelims'22 Score Calculator
         </Typography>
         {this.state.step === 1 ? (
-          <Step1
-            selectSet={this.selectSet}
-            selectSet2={this.selectSet2}
-            setName={this.setName}
-            onClickPaper1={this.onClickPaper1}
-            onClickPaper2={this.onClickPaper2}
-          ></Step1>
+          <div>
+            <Step1
+              selectSet={this.selectSet}
+              selectSet2={this.selectSet2}
+              setName={this.setName}
+              onClickPaper1={this.onClickPaper1}
+              onClickPaper2={this.onClickPaper2}
+            ></Step1>
+            <Analytics></Analytics>
+          </div>
         ) : null}
         {this.state.step === 2 ? (
           <Step2

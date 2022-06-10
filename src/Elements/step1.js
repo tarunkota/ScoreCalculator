@@ -7,6 +7,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Login from "./login";
+import Links from "./links";
 
 class Step1 extends React.Component {
   state = {
@@ -74,6 +75,7 @@ class Step1 extends React.Component {
           onClickPaper1={this.props.onClickPaper1}
           onClickPaper2={this.props.onClickPaper2}
         ></Login>
+        <Links></Links>
       </div>
     );
   }
