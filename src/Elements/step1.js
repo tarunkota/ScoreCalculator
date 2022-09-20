@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Login from "./login";
 import Links from "./links";
+import ResultForm from "./prelimsResultForm";
 
 class Step1 extends React.Component {
   state = {
@@ -20,6 +21,7 @@ class Step1 extends React.Component {
   render() {
     return (
       <div>
+        <ResultForm></ResultForm>
         <Card
           style={{
             padding: "10px",
